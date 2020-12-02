@@ -1,4 +1,4 @@
-const { toSortedNumberArray } = require('../lib/input');
+const { toSortedNumberArray } = require('../../../lib/input');
 
 // https://en.wikipedia.org/wiki/3SUM
 const twoSum = (sum, numbers) => {

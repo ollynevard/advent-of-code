@@ -1,4 +1,4 @@
-const { toArray } = require('../lib/input');
+const { toArray } = require('../../../lib/input');
 
 const POLICY_REGEX = /(\d+)-(\d+)\s(\w):\s(\w+)/;
 
