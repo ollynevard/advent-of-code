@@ -1,7 +1,7 @@
 {
-  "name": "advent-of-code-2020",
+  "name": "advent-of-code",
   "version": "1.0.0",
-  "description": "Advent of code 2020",
+  "description": "Advent of code",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ollynevard/advent-of-code-2020.git"
+    "url": "git+https://github.com/ollynevard/advent-of-code.git"
   },
   "author": "Olly Nevard",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ollynevard/advent-of-code-2020/issues"
+    "url": "https://github.com/ollynevard/advent-of-code/issues"
   },
   "dependencies": {},
   "devDependencies": {
