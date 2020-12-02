@@ -3,7 +3,13 @@
   "rules": {
     "no-bitwise": ["error", { "allow": ["^"] }],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
-    "mocha/no-mocha-arrows": "off"
+    "mocha/no-mocha-arrows": "off",
+    "no-restricted-syntax": [
+      "error",
+      "ForInStatement",
+      "LabeledStatement",
+      "WithStatement"
+    ]
   },
   "env": {
     "mocha": true
