@@ -1,6 +1,7 @@
 {
   "extends": ["airbnb-base", "plugin:mocha/recommended", "prettier"],
   "rules": {
+    "no-bitwise": ["error", { "allow": ["^"] }],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "mocha/no-mocha-arrows": "off"
   },
