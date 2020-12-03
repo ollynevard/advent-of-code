@@ -1,17 +1,20 @@
-const toArray = (input) => {
-  return input.split('\n');
-}
+const fs = require('fs');
 
-const toNumberArray = (input) => {
-  return toArray(input).map(Number);
-}
+const load = (file) => fs.readFileSync(file, 'utf-8');
 
-const toSortedNumberArray = (input) => {
-  return toNumberArray(input).sort((a, b) => a - b);
-}
+const toArray = (input) => input.split('\n');
+
+const toGrid = (input) => toArray(input).map((row) => row.split(''));
+
+const toNumberArray = (input) => toArray(input).map(Number);
+
+const toSortedNumberArray = (input) =>
+  toNumberArray(input).sort((a, b) => a - b);
 
 module.exports = {
+  load,
   toArray,
+  toGrid,
   toNumberArray,
-  toSortedNumberArray
-}
+  toSortedNumberArray,
+};
