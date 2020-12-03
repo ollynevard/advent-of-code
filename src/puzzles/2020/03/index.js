@@ -22,7 +22,7 @@ const part2 = (input) => {
     [7, 1],
     [1, 2],
   ].reduce(
-    (count, coords) => count * countTrees(toGrid(input), coords[0], coords[1]),
+    (count, [right, down]) => count * countTrees(toGrid(input), right, down),
     1
   );
 };
