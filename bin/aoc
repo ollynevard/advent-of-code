@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
+
+const fs = require('fs');
+const path = require('path');
+const { program } = require('@caporal/core');
+const Mocha = require('mocha');
+
+const today = new Date();
+const currentYear = today.getFullYear();
+const currentMonth = today.getMonth() + 1;
+const currentDay = today.getDate();
+const defaultDay = currentMonth === 12 ? currentDay : 1;
+
+program.version('0.1.0');
+
+program
+  .command('run', 'Run the solution againt the input')
+  .option('-y, --year <year>', 'The year of the challenge', {
+    default: currentYear,
+  })
+  .option('-d, --day <day>', 'The day of the challenge', {
+    default: defaultDay,
+  })
+  .option('-p, --part <part>', 'The part of the challenge', {
+    default: 1,
+  })
+  .action(({ options }) => {
+    const { year, day, part } = options;
+    const solutionPath = path.join(
+      __dirname,
+      '../src/puzzles',
+      String(year),
+      String(day).padStart(2, '0')
+    );
+    const solutions = require(solutionPath);
+    const input = fs.readFileSync(
+      path.join(solutionPath, 'input.txt'),
+      'utf-8'
+    );
+    const result = solutions[`part${part}`](input);
+    console.log('\nResult: %d', result);
+  });
+
+program
+  .command('test', 'Run the tests for the solution')
+  .option('-y, --year <year>', 'The year of the challenge')
+  .option('-d, --day <day>', 'The day of the challenge')
+  .option('-p, --part <part>', 'The part of the challenge')
+  .action(({ options }) => {
+    const { year, day, part } = options;
+    const mocha = new Mocha();
+    const testFilePath = path.join(__dirname, '../tests/index.spec.js');
+
+    process.env.YEAR = year;
+    process.env.DAY = String(day).padStart(2, '0');
+    process.env.PART = part;
+
+    mocha.addFile(testFilePath);
+    mocha.run((failures) => {
+      process.exitCode = failures ? 1 : 0;
+    });
+  });
+
+program.run();
