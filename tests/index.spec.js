@@ -14,16 +14,21 @@ fs.readdirSync(puzzlePath).forEach((year) => {
     fs.readdirSync(yearPath).forEach((day) => {
       const dayPath = path.join(yearPath, day);
       const testPath = path.join(dayPath, 'test');
-      const { part1, part2 } = require(dayPath);
-      const { input, part1Answer, part2Answer } = require(testPath);
+      const solutions = require(dayPath);
+      const allTests = require(testPath);
 
       describe(`Day ${day}`, () => {
-        it('Part 1', () => {
-          assert.equal(part1(input), part1Answer);
-        });
-
-        it('Part 2', () => {
-          assert.equal(part2(input), part2Answer);
+        allTests.forEach((tests, part) => {
+          describe(`Part ${part + 1}`, () => {
+            tests.forEach((test, index) => {
+              it(`Test ${index + 1}: Expected ${test.expected}`, () => {
+                assert.equal(
+                  solutions[`part${part + 1}`](test.input),
+                  test.expected
+                );
+              });
+            });
+          });
         });
       });
     });
