@@ -1,5 +1,3 @@
-const { load } = require('../../../lib/input');
-
 const getPassportFromInput = (input) => input.split('\n\n');
 
 const getPassportFields = (passport) =>
@@ -7,7 +5,7 @@ const getPassportFields = (passport) =>
     passport.match(/([^\s]+):([^\s]+)/g).map((field) => field.split(':'))
   );
 
-const hasValidFields = (fields) =>
+const hasRequiredFields = (fields) =>
   ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'].reduce(
     (isValid, field) => isValid && field in fields,
     true
@@ -36,7 +34,7 @@ const isValidPassportId = (id) => id.match(/^\d{9}$/) !== null;
 const part1 = (input) => {
   return getPassportFromInput(input).reduce(
     (validPassports, passport) =>
-      validPassports + hasValidFields(getPassportFields(passport)),
+      validPassports + hasRequiredFields(getPassportFields(passport)),
     0
   );
 };
@@ -48,7 +46,7 @@ const part2 = (input) => {
 
     return (
       validPassports +
-      (hasValidFields(fields) &&
+      (hasRequiredFields(fields) &&
         isValidDate(fields.byr, 1920, 2002) &&
         isValidDate(fields.iyr, 2010, 2020) &&
         isValidDate(fields.eyr, 2020, 2030) &&
@@ -61,6 +59,3 @@ const part2 = (input) => {
 };
 
 module.exports = { part1, part2 };
-
-console.log(part1(load(__dirname + '/input.txt')));
-console.log(part2(load(__dirname + '/input.txt')));
